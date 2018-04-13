@@ -77,7 +77,7 @@ var app = {
 
                     //Si el contador es parejo printara una negra
                     if (contador%2==0){                          
-                        tablero.append("<td class=negras style='background-color:black; '></td>");    
+                        tablero.append("<td class=negras id="+letras[c]+i+" style='background-color:black; '></td>");    
                                             
                         
                         }
@@ -85,7 +85,7 @@ var app = {
                     //Si no , printara una blanca
                     else{
                             
-                        tablero.append("<td class=blancas style='background-color:white';></td>"); 
+                        tablero.append("<td class=blancas id="+letras[c]+i+" style='background-color:white';></td>"); 
                         
                         
                          }
