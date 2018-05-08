@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval';style-src 'self' 'unsafe-inline';media-src *;img-src 'self' data: content:;script-src * 'unsafe-eval' 'unsafe-inline'; connect-src * 'unsafe-eval' 'unsafe-inline';">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+   
+            <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    	<style type="text/css">
+    		td {                
+                    width: 60px;
+                    height: 38px;
+                    text-align: center;
+                    
+                    padding:0;
+                    margin:0;
+                }
+
+            .click{
+                border: 1px solid ;
+                border-spacing: 0;
+            }
+
+                th {
+                    width: 30px;
+                    height: 40px;
+                    border-spacing: 0;
+                    padding:0;
+                    margin:0;
+
+                }
+                table {
+                    width: 578px;
+                    table-layout: fixed;
+                    border-collapse: collapse; 
+                                 
+                            }
+
+                img{
+                    width: 50px;
+                    height: 50px;
+                }
+
+
+    		
+    	</style>
+       
+
+    </head>
+    <body>
+        <table id="tablero" align="center"></table>
+
+    </body>
+
+
+    
+
+
+
+    
+    
+    
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+
+    <script type="text/javascript">
+        var contador=1;
+        var posIni;
+        var posFin;
+        setInterval(ajaxCall, 2000); //2 sec"
+                    function ajaxCall() {
+                        $.ajax({                            
+                            type: 'GET',
+                            url: 'https://ajedrezap.herokuapp.com/api/ver/'+localStorage.getItem('id')+'/'+localStorage.getItem('idPartida')+'/'+localStorage.getItem('token'),                       
+
+                                success: function (msg) {  
+                                    msg = JSON.parse(msg);
+                                    
+                                    if (msg.estado == "ok") {
+                                        var parent= $('.torreNeg').parent().attr('id');                                        
+                                        $('#'+msg.pos).empty();
+                                        $('#'+msg.pos).prepend('<img id="torre" src="img/torre.png" />');
+
+                                         
+                                                                              
+                                        $('#'+msg.fin1).empty();  
+                                        $('#'+msg.pos1).empty();
+                                        $('#'+msg.pos1).prepend('<img id="torreNeg" src="img/torreNeg.png" />');
+                                        
+                                    }else{
+
+                                    }
+                
+                                             
+                                    
+                                },
+                                error: function (request, status, error) {
+                                    
+                                }
+                            });
+                    };
+
+
+
+
+        
+            $('td').click(function(){
+            if( (contador%2 !=0) == true ){
+                posIni=this.id;
+                contador++;
+                localStorage.setItem('casilla' , posIni);
+                
+            }else{
+              
+            
+                posFin=this.id;
+                contador++;
+              
+            
+                
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://ajedrezap.herokuapp.com/api/mou/'+localStorage.getItem('id')+'/'+localStorage.getItem('idPartida')+'/'+posIni+'/'+posFin+'/'+localStorage.getItem('token'), 
+
+
+                    success: function (msg) { 
+
+   
+                        msg = JSON.parse(msg);
+
+
+
+                        if (msg.estado == "ok") {
+
+                            if (msg.posIni==posIni){
+
+                                $( '#'+posIni ).empty();
+                                $('#'+msg.posFin).prepend('<img id="rey" src="img/torre.png" />');
+
+
+                            }else{
+                                alert("Selecciona una ficha");
+                            }  
+                            
+                        }
+
+                        
+                             
+                                            
+                    },
+                    error: function (request, status, error) {
+                        
+                        alert('Movimiento no permitido');
+                    }
+                });};
+
+            });
+
+        
+        
+
+        
+
+
+
+    </script>
+
+
+
+    </script>
+</html>

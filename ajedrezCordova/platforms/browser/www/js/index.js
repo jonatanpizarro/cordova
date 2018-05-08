@@ -42,66 +42,68 @@ var app = {
         console.log('Received Event: ' + id);
     },
 
+    printPos: function(id){
+        alert(id);
+    },
+
     createTable: function() {
         var tablero= $("#tablero");
         var letras =["","A","B","C","D","E","F","G","H"];
-        var numeros=["","1","2","3","4","5","6","7","8"];
         var contador =0;
-        var fila = $("<tr></tr>");
-        var celda = $("<td></td>");
+        var tbody=$('<tboody></tbody>');
+        
 
         //FILAS
         for (var i=0; i<=8; i++) {
-            tablero.append("<tr> </tr>");
+            var tr=$('<tr></tr>');
             
             //COLUMNAS
-            for (var c=0; c<=8; c++) {
-                
+            for (var c=0; c<=8; c++) {                
 
                 //Si es la primera fila printo la lista letras
                 if (i==0) {
 
-                    tablero.append("<th>"+letras[c]+"</th>"); 
-                    
+                    var td=$("<td>"+letras[c]+"</td>");               
                                       
                 }
 
                 //Si no es la primera fila y es la primera columna printo un numero
                 else if (i!=0 & c==0){
-                    tablero.append("<tr> </tr>");
-                    tablero.append("<th>"+i+"</th>"); 
+                    
+                    var td=$("<td>"+i+"</td>"); 
                 }
 
                 //Si no es ni la primera fila ni la primera columna le doy una clase para luego darle color
                 else if (i!=0 & c!=0){
 
                     //Si el contador es parejo printara una negra
-                    if (contador%2==0){                          
-                        tablero.append("<td class=negras style='background-color:black; '></td>");    
-                                            
+                    if (contador%2==0){ 
+                                                 
+                        var td=$("<td id="+letras[c]+i+" class='click' style='background-color:white;' ></td>");    
+                        
                         
                         }
 
                     //Si no , printara una blanca
                     else{
                             
-                        tablero.append("<td class=blancas style='background-color:white';></td>"); 
+                        var td=$("<td id="+letras[c]+i+" class='click' style='background-color:black;'></td>"); 
                         
                         
                          }
                         
                 }
-             contador ++;  
-                 
-             
-             
-            
+                
+                tr.append(td);
+               
+                contador ++;            
         }
-
-
+        tbody.append(tr);
     }
+    tablero.append(tbody);
+
 }};
 
 app.initialize();
-
 app.createTable();
+

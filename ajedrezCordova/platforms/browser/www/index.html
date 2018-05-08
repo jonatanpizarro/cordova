@@ -28,30 +28,93 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+            <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval';style-src 'self' 'unsafe-inline';media-src *;img-src 'self' data: content:;script-src * 'unsafe-eval' 'unsafe-inline'; connect-src * 'unsafe-eval' 'unsafe-inline';">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         <title>Hello World</title>
+
         <style type="text/css"> 
-            td {
-                border: solid;
+            body {
+              background-color:#fff;
+              -webkit-font-smoothing: antialiased;
+              font: normal 14px Roboto,arial,sans-serif;
             }
 
+            .container {
+                padding: 25px;
+                position: fixed;
+            }
+
+            .form-login {
+                background-color: #EDEDED;
+                padding-top: 10px;
+                padding-bottom: 20px;
+                padding-left: 20px;
+                padding-right: 20px;
+                border-radius: 15px;
+                border-color:#d2d2d2;
+                border-width: 5px;
+                box-shadow:0 1px 0 #cfcfcf;
+            }
+
+            h4 { 
+             border:0 solid #fff; 
+             border-bottom-width:1px;
+             padding-bottom:10px;
+             text-align: center;
+            }
+
+            .form-control {
+                border-radius: 10px;
+            }
+
+            .wrapper {
+                text-align: center;
+            }
+            
+
         </style>
+      
     </head>
     <body>
         <div class="app">
-            <h1>Apache Cordova</h1>
+          
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
             </div>
 
-            <table id="tablero"></table>
+            <div class="container">
+            <div class="row mt-5">
+                <div class="col-md-5"></div>
+                <div class="col-md-3">
+                    <div class="form-login">
+                    <h4>Bienvenido</h4>
+                    <form action="" method="POST">
+                        <input type="text" id="userName" class="form-control input-sm chat-input" placeholder="Usuario" />
+                        </br>
+                        <input type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="Contrasena" />
+                        </br>
+                        <div class="wrapper">
+                        <span class="group-btn">     
+                            <a id=submit class="btn btn-primary btn-md" >Login <i class="fa fa-sign-in"></i></a>
+                        </span>
+                        </div>
+                    </form>
+                    </div>
+                
+                </div>
+            </div>    
+            </div>
+        
+
+           <!-- <table id="tablero" align="center"></table>-->
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>
